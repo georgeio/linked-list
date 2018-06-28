@@ -1,5 +1,7 @@
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include "l_funcs.h"
 
@@ -8,9 +10,10 @@
 /*
   Create new node
 */
-node create_node(int* id, char* name, int* age, node* prev, node* next)
+node new_node()
 {
-   return (node) {*id, "", *age, prev, next}; 
+   static int id = 1;
+   return (node) {id++, NULL, NULL, NULL}; 
 }
 
 /*
@@ -27,6 +30,28 @@ node* get_first_node(list* l)
 node* get_last_node(list* l)
 {
 	return l->last_node;
+}
+
+/*
+   Return an array of all the id of existing nodes
+*/
+void get_all_nodes_id(list* l, int *arr)
+{
+   if(( sizeof(*arr) / sizeof(int) ) != l->node_count) {
+      puts("Array to hold IDs does not have enough memory");
+      exit(EXIT_SUCCESS);
+   }
+
+   node temp_node = *l->first_node;
+
+   for (int i = 0; i < l->node_count; ++i)
+   {
+      *arr = temp_node.id;
+      temp_node = *temp_node.next;
+
+      arr++;
+   }
+
 }
 
 /*
@@ -64,12 +89,12 @@ int remove_node_byadr(list* l, node* _node)
 */
 list* new_list(node* data)
 {
-	list *n_list = malloc(sizeof(list));
+   list *n_list = malloc(sizeof(list));
    l_ops *list_ops = malloc(sizeof(l_ops));
 
-	n_list->node_count++;
-	n_list->first_node = data;
-	n_list->last_node = data;
+   n_list->node_count = 1;
+   n_list->first_node = data;
+   n_list->last_node = data;
       
    *list_ops = (l_ops){    
          &get_first_node, 
@@ -77,8 +102,9 @@ list* new_list(node* data)
          &add_node,
          &remove_node_byadr,
    };  //initialise ops struct for managing methods
-   n_list->_ = list_ops;
 
-	return n_list;
+   n_list->vt = list_ops;
+
+   return n_list;
 	
 }
