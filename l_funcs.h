@@ -9,7 +9,7 @@ typedef struct list_operations l_ops;
 
 struct node{
 	int id;
-	char** data;
+	char data[MAX_DATA_LEN];
     node *previous;
 	node *next;
 };
@@ -36,7 +36,7 @@ node new_node();
 list* new_list(node*);
 node* get_first_node(list*);
 node* get_last_node(list*);
-int add_node(list*, node *);
+int add_node(list*, node*);
 void get_all_nodes_id(list*, int*);
 
 #endif

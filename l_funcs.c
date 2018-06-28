@@ -13,7 +13,7 @@
 node new_node()
 {
    static int id = 1;
-   return (node) {id++, NULL, NULL, NULL}; 
+   return (node) {id++, "", NULL, NULL}; 
 }
 
 /*
@@ -37,16 +37,21 @@ node* get_last_node(list* l)
 */
 void get_all_nodes_id(list* l, int* id)
 {
-   
-   node temp_node = *l->first_node;
+   node* temp_node_ptr = malloc(sizeof(node));
+   memcpy(temp_node_ptr, l->first_node, sizeof(node));
+
    int i;
 
    for (i = 0; i < l->node_count; ++i) {
-      *id = temp_node.id;
-      temp_node = *temp_node.next;
-      
-      id++;
+      *id = temp_node_ptr->id;
+
+      if( temp_node_ptr->next ) {
+         memcpy(temp_node_ptr, temp_node_ptr->next, sizeof(node));
+         id++;
+      }
    }
+
+   free(temp_node_ptr);
 }
 
 /*
@@ -96,6 +101,7 @@ list* new_list(node* data)
          &get_last_node, 
          &add_node,
          &remove_node_byadr,
+         &get_all_nodes_id
    };  //initialise ops struct for managing methods
 
    n_list->vt = list_ops;
