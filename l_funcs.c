@@ -5,7 +5,7 @@
 
 #include "l_funcs.h"
 
-#define _SUCCESS 1
+#define SUCCESS 1
 
 /*
   Create new node
@@ -35,17 +35,16 @@ node* get_last_node(list* l)
 /*
    Return an array of all the id of existing nodes
 */
-void get_all_nodes_id(list* l, int* id)
+void get_all_node_ids(list* l, int* id)
 {
    node* temp_node_ptr = malloc(sizeof(node));
    memcpy(temp_node_ptr, l->first_node, sizeof(node));
 
    int i;
-
    for (i = 0; i < l->node_count; ++i) {
       *id = temp_node_ptr->id;
 
-      if( temp_node_ptr->next ) {
+      if(temp_node_ptr->next) {
          memcpy(temp_node_ptr, temp_node_ptr->next, sizeof(node));
          id++;
       }
@@ -64,7 +63,7 @@ int add_node(list* l, node* _node)
    l->last_node = _node;
    l->node_count++;
 
-   return _SUCCESS;
+   return SUCCESS;
 }
 
 /*
@@ -75,13 +74,13 @@ int remove_node_byadr(list* l, node* _node)
 
    if(_node->previous == NULL) {
       _node->next->previous = NULL;
-      return _SUCCESS;
+      return SUCCESS;
    }
 
    _node->previous->next = _node->next;
    _node->next->previous = _node->previous;
 
-   return _SUCCESS;
+   return SUCCESS;
 }
 
 /*
@@ -89,19 +88,19 @@ int remove_node_byadr(list* l, node* _node)
 */
 list* new_list(node* data)
 {
-   list *n_list = malloc(sizeof(list));
-   l_ops *list_ops = malloc(sizeof(l_ops));
+   list *n_list = malloc(sizeof(*n_list));
+   l_ops *list_ops = malloc(sizeof(*list_ops));
 
    n_list->node_count = 1;
    n_list->first_node = data;
    n_list->last_node = data;
       
    *list_ops = (l_ops){    
-         &get_first_node, 
-         &get_last_node, 
-         &add_node,
-         &remove_node_byadr,
-         &get_all_nodes_id
+      get_first_node, 
+      get_last_node, 
+      add_node,
+      remove_node_byadr,
+      get_all_node_ids
    };  //initialise ops struct for managing methods
 
    n_list->vt = list_ops;

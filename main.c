@@ -22,11 +22,10 @@ main(int argc, char* argv[])
 	printf("Second node is at %p Node ID is: %d\n", n, n->id);
 
 	int ids[n_list->node_count];       
-	n_list->vt->get_all_nodes_id(n_list, ids);
+	n_list->vt->get_all_node_ids(n_list, ids);
  	int i;
 
-	for (i = 0; i < ( sizeof(ids)/ sizeof(typeof(ids[0])) ); ++i)
-	{
+	for (i = 0; i < ( sizeof(ids) / sizeof(ids[0]) ); ++i) {
 	    printf("ID for %d   is: %d\n", (i + 1), ids[i]);
 	}
 

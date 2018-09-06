@@ -26,7 +26,7 @@ struct list_operations {
 	node* (*get_last_node)(list*);
 	int (*add_node)(list*, node*);
 	int (*remove_node_byadr)(list*, node*);
-	void (*get_all_nodes_id)(list* l, int*);
+	void (*get_all_node_ids)(list* l, int*);
 };
 
 //Methods for operating on nodes
@@ -37,6 +37,6 @@ list* new_list(node*);
 node* get_first_node(list*);
 node* get_last_node(list*);
 int add_node(list*, node*);
-void get_all_nodes_id(list*, int*);
+void get_all_node_ids(list*, int*);
 
 #endif
