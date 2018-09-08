@@ -1,5 +1,5 @@
-#ifndef L_FUNCS_H
-#define L_FUNCS_H
+#ifndef L_LISTS_H
+#define L_LISTS_H
 
 #define MAX_DATA_LEN 512
 

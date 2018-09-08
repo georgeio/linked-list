@@ -1,10 +1,10 @@
 all: linked
 
-linked: l_funcs.o main.o
-	gcc -o linked -g l_funcs.c main.c
+linked: l_lists.o main.o
+	gcc -o linked main.c l_list/l_lists.c
 
-l_funcs.o:	l_funcs.c
-	gcc -c l_funcs.c
+l_lists.o:	l_list/l_lists.c
+	gcc -c l_list/l_lists.c
 
 main.o:	main.c
 	gcc -c main.c

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include "l_funcs.h"
+#include "l_lists.h"
 
 #define SUCCESS 1
 

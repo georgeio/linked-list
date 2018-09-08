@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
-#include "l_funcs.h"
-
-
+#include "l_list/l_lists.h"
 
 int 
 main(int argc, char* argv[])
