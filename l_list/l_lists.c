@@ -14,6 +14,16 @@ node ll_new_node(void* data)
    return (node) {id++, (void*) data, NULL, NULL}; 
 }
 
+int ll_get_node_id(node* n)
+{
+   return n->id;
+}
+
+void* ll_get_node_data(node* n)
+{
+   return n->data;
+}
+
 // Return first node on the list
 node* ll_get_first_node(list* l)
 {

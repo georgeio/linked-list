@@ -14,13 +14,13 @@ main(int argc, char* argv[])
 	list* n_list = ll_new_list(&nod1);
 	node* n = ll_get_first_node(n_list);
 
-	printf("First node is at: %p Node ID is: %d Data: %s\n", n, n->id, n->data);
+	printf("First node is at: %p Node ID is: %d Data: %s\n", n, ll_get_node_id(n), (char*) ll_get_node_data(n));
 
 	node nod2 = ll_new_node(&smp_digit);
 	ll_add_node(n_list, &nod2);
 	n = ll_get_last_node(n_list); 
 
-	printf("Second node is at: %p Node ID is: %d Data: %d\n", n, n->id, (*(int*) n->data));
+	printf("Second node is at: %p Node ID is: %d Data: %d\n", n, ll_get_node_id(n), (*(int*) ll_get_node_data(n)));
 
 	int ids[ ll_node_count(n_list) ];       
 	ll_get_all_node_ids(n_list, ids);
