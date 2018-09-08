@@ -20,7 +20,7 @@ struct list {
 };
 
 //Methods for operating on nodes
-node ll_new_node();
+node ll_new_node(void* data);
 
 //Methods for operating on list
 list* ll_new_list(node*);

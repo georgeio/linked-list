@@ -8,10 +8,10 @@
 #define SUCCESS 1
 
 // Create new node
-node ll_new_node()
+node ll_new_node(void* data)
 {
    static int id = 1;
-   return (node) {id++, "", NULL, NULL}; 
+   return (node) {id++, (void*) data, NULL, NULL}; 
 }
 
 // Return first node on the list
