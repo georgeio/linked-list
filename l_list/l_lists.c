@@ -6,63 +6,67 @@
 #include "l_lists.h"
 
 #define SUCCESS 1
+#define FAILURE -1
 
 // Create new node
-node ll_new_node(void* data)
+node ll_new_node(void *data)
 {
    static int id = 1;
-   return (node) {id++, (void*) data, NULL, NULL}; 
+   return (node) {id++, data, NULL, NULL}; 
 }
 
-int ll_get_node_id(node* n)
+//Get id of a passed node
+int ll_get_node_id(node *n)
 {
    return n->id;
 }
 
-void* ll_get_node_data(node* n)
+//Get data of a passed node
+void* ll_get_node_data(node *n)
 {
    return n->data;
 }
 
 // Return first node on the list
-node* ll_get_first_node(list* l)
+node* ll_get_first_node(list *l)
 {
 	return l->first_node;
 }
 
 // Return last node on list
-node* ll_get_last_node(list* l)
+node* ll_get_last_node(list *l)
 {
 	return l->last_node;
 }
 
 // Return an array of all the id of existing nodes
-void ll_get_all_node_ids(list* l, int* id)
+int ll_get_all_node_ids(list *l, int *id)
 {
-   node* temp_node_ptr = malloc(sizeof(node));
-   memcpy(temp_node_ptr, l->first_node, sizeof(node));
+   if( ! l->first_node )
+      return FAILURE;
 
-   int i;
-   for (i = 0; i < l->node_count; ++i) {
-      *id = temp_node_ptr->id;
+   node *tmp_node_ptr = l->first_node;
 
-      if(temp_node_ptr->next) {
-         memcpy(temp_node_ptr, temp_node_ptr->next, sizeof(node));
+   for (size_t i = 0; i < l->node_count; ++i) {
+      *id = tmp_node_ptr->id;
+
+      if(tmp_node_ptr->next) {
+         tmp_node_ptr = tmp_node_ptr->next;
          id++;
       }
    }
 
-   free(temp_node_ptr);
+   return SUCCESS;
 }
 
 // Get total count of nodes present in the list
-int ll_node_count(list* l)
+int ll_node_count(list *l)
 {
    return (int) l->node_count;
 }
 
 // Add new node to list
-int ll_add_node(list* l, node* _node)
+int ll_add_node(list *l, node *_node)
 {
    _node->previous = l->last_node;
    l->last_node->next = _node;
@@ -73,7 +77,7 @@ int ll_add_node(list* l, node* _node)
 }
 
 //Remove a node from the list by the node address
-int ll_remove_node_byadr(list* l, node* _node)
+int ll_remove_node_byadr(list *l, node *_node)
 {
 
    if(_node->previous == NULL) {
@@ -88,7 +92,7 @@ int ll_remove_node_byadr(list* l, node* _node)
 }
 
 //Create a new list, with the passed param as first node
-list* ll_new_list(node* node)
+list* ll_new_list(node *node)
 {
    list *n_list = malloc(sizeof(*n_list));
 

@@ -29,7 +29,7 @@ list* ll_new_list(node*);
 node* ll_get_first_node(list*);
 node* ll_get_last_node(list*);
 int ll_add_node(list*, node*);
-void ll_get_all_node_ids(list*, int*);
+int ll_get_all_node_ids(list*, int*);
 int ll_node_count(list*);
 
 #endif
