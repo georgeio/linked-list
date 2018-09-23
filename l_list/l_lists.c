@@ -23,39 +23,45 @@ ll_new_node(char s[])
 
 //Get id of a passed node
 int 
-ll_get_node_id(node *n)
+ll_node_id(node *n)
 {
    return n->id;
 }
 
 //Get data of a passed node
 char *
-ll_get_node_data(node *n)
+ll_node_data(node *n)
 {
    return n->data;
 }
 
 // Return first node on the list
 node *
-ll_get_first_node(list *l)
+ll_first_node(list *l)
 {
 	return l->first_node;
 }
 
 // Return last node on list
 node *
-ll_get_last_node(list *l)
+ll_last_node(list *l)
 {
 	return l->last_node;
 }
 
-// Return an array of all the id of existing nodes
+/*
+*   Return an array of all the id of existing nodes
+*   There is the risk of buffer overflow here.
+*   Ensure the size of the passed array is 
+*   >= existing nodes.
+*/
 int 
-ll_get_all_node_ids(list *l, int *id)
+ll_all_ids(list *l, int *id)
 {
    if( ! l->first_node )
       return FAILURE;
-
+      
+   memset(id, 0, sizeof(*id) * LL_MAX_NODE_LIMIT ); //zero out IDs memory space
    node *tmp_node_ptr = l->first_node;
 
    for (size_t i = 0; i < l->node_count; ++i) {
@@ -93,10 +99,22 @@ ll_add_node(list *l, node *node)
 int 
 ll_remove_node_byadr(list *l, node *node)
 {
-   if(node->previous == NULL && node->next == NULL)
+   if(node->previous == NULL && node->next == NULL) {
+      l->node_count = 0;
+      return SUCCESS;
+   }
+   
+   l->node_count--;
 
    if(node->previous == NULL) {
       node->next->previous = NULL;
+      l->first_node = node->next;
+      return SUCCESS;
+   }
+
+   if(node->next == NULL) {
+      node->previous->next = NULL;
+      l->last_node = node->previous;
       return SUCCESS;
    }
 
