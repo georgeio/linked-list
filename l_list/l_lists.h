@@ -9,8 +9,8 @@ typedef struct list list;
 struct node{
 	int id;
 	char* data;
-    node* previous;
 	node* next;
+	node* previous;
 };
 
 struct list {

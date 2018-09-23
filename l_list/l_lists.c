@@ -14,7 +14,7 @@ ll_new_node(char s[])
 {
    if( strlen(s) > LL_MAX_DATA_LEN ) {
       perror("ll_new_node(): String length is too long");
-      exit();
+      exit(0);
    }
 
    static int id = 1;
@@ -79,11 +79,11 @@ ll_node_count(list *l)
 
 // Add new node to list
 int 
-ll_add_node(list *l, node *_node)
+ll_add_node(list *l, node *node)
 {
-   _node->previous = l->last_node;
-   l->last_node->next = _node;
-   l->last_node = _node;
+   node->previous = l->last_node;
+   l->last_node->next = node;
+   l->last_node = node;
    l->node_count++;
 
    return SUCCESS;
@@ -91,16 +91,17 @@ ll_add_node(list *l, node *_node)
 
 //Remove a node from the list by the node address
 int 
-ll_remove_node_byadr(list *l, node *_node)
+ll_remove_node_byadr(list *l, node *node)
 {
+   if(node->previous == NULL && node->next == NULL)
 
-   if(_node->previous == NULL) {
-      _node->next->previous = NULL;
+   if(node->previous == NULL) {
+      node->next->previous = NULL;
       return SUCCESS;
    }
 
-   _node->previous->next = _node->next;
-   _node->next->previous = _node->previous;
+   node->previous->next = node->next;
+   node->next->previous = node->previous;
 
    return SUCCESS;
 }
