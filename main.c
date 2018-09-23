@@ -11,8 +11,11 @@ main(int argc, char* argv[])
 	char smp_txt2[] = "Another set of sample data for node 2";
 	int ids[12]; 
 
+	list* n_list = ll_new_list(); //create new list
+
 	node nod1 = ll_new_node(smp_txt);
-	list* n_list = ll_new_list(&nod1);
+	ll_add_node(n_list, &nod1);
+
 	node* n = ll_first_node(n_list);
 
 	puts("[--] First node [--]");

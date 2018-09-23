@@ -87,8 +87,13 @@ ll_node_count(list *l)
 int 
 ll_add_node(list *l, node *node)
 {
+   if(l->node_count) {
+      l->last_node->next = node;
+   }else{
+      l->first_node = node;
+   }
+
    node->previous = l->last_node;
-   l->last_node->next = node;
    l->last_node = node;
    l->node_count++;
 
@@ -126,13 +131,13 @@ ll_remove_node_byadr(list *l, node *node)
 
 //Create a new list, with the passed param as first node
 list *
-ll_new_list(node *node)
+ll_new_list()
 {
    list *n_list = malloc(sizeof(*n_list));
 
-   n_list->node_count = 1;
-   n_list->first_node = node;
-   n_list->last_node = node;
+   n_list->node_count = 0;
+   n_list->first_node = NULL;
+   n_list->last_node = NULL;
 
    return n_list;
 	

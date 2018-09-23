@@ -26,7 +26,7 @@ int ll_node_id(node*);
 char *ll_node_data(node*);
 
 //Methods for operating on list
-list *ll_new_list(node*);
+list *ll_new_list();
 node *ll_first_node(list*);
 node *ll_last_node(list*);
 int ll_add_node(list*, node*);
