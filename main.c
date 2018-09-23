@@ -7,22 +7,22 @@
 int 
 main(int argc, char* argv[])
 {
-	char* smp_txt = "Some sample data to store in the node";
-	size_t smp_digit = 39282;
+	char smp_txt[] = "Some sample data to store in the node";
+	char smp_txt2[] = "Another set of sample data for node 2";
 
 	node nod1 = ll_new_node(smp_txt);
 	list* n_list = ll_new_list(&nod1);
 	node* n = ll_get_first_node(n_list);
 
 	puts("[--] First node [--]");
-	printf("Node Address: %p\nNode ID: %d\nNode Data: %s\n\n", n, ll_get_node_id(n), (char*) ll_get_node_data(n));
+	printf("Node Address: %p\nNode ID: %d\nNode Data: %s\n\n", n, ll_get_node_id(n), ll_get_node_data(n));
 
-	node nod2 = ll_new_node(&smp_digit);
+	node nod2 = ll_new_node(smp_txt2);
 	ll_add_node(n_list, &nod2);
 	n = ll_get_last_node(n_list); 
 
 	puts("[--] Last node [--]");
-	printf("Node Address: %p\nNode ID: %d\nNode Data: %d\n\n", n, ll_get_node_id(n), (*(int*) ll_get_node_data(n)));
+	printf("Node Address: %p\nNode ID: %d\nNode Data: %s\n\n", n, ll_get_node_id(n), ll_get_node_data(n));
 
 	int ids[ ll_node_count(n_list) ];       
 	ll_get_all_node_ids(n_list, ids);
